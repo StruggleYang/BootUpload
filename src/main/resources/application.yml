@@ -1,0 +1,6 @@
+server:
+  port: 8089
+
+  # 自定义的陪配置
+myProperties:
+  fileUploadPath: E:/test/

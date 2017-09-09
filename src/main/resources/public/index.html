@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>springBoot文件上传</title>
+    <script type="text/javascript" src="puls/jquery.min.js"></script>
+    <link rel="stylesheet" href="puls/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="puls/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!--引入CSS-->
+    <link rel="stylesheet" type="text/css" href="puls/webuploader-0.1.5/webuploader.css">
+    <!--引入JS-->
+    <script type="text/javascript" src="puls/webuploader-0.1.5/webuploader.js"></script>
+    <!--SWF在初始化的时候指定-->
+    <script type="text/javascript" src="puls/file-upload.js"></script>
+    <script type="text/javascript" src="js/test.js"></script>
+</head>
+<body>
+<div id="upload-back">
+    <div id="upload">
+        <div id="uploader" class="wu-example">
+            <div id="TestFileList" class="uploader-list"></div>
+            <div class="btns">
+                <div id="TestPicker">
+                    <i class="fa fa-plus-square-o"></i>&nbsp;选择文件</div>
+                <button style="margin-left: 8px" id="TestExecuteUploadBtn" class="btn btn-sm btn-info">
+                    <i class="fa fa-upload"></i>&nbsp;开始上传</button>
+            </div>
+            <div>
+                <button style="margin-left: 18px;margin-top: 10px"  type="button" class="btn btn-success" onclick="Test()">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
