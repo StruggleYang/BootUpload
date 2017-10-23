@@ -1,6 +1,14 @@
 server:
   port: 8089
 
-  # 自定义的陪配置
+spring:
+  http:
+    multipart:
+      enabled: true
+      max-file-size: 10MB #文件大小
+      max-request-size: 5MB #请求大小
+
+
+  # 自定义的配置
 myProperties:
-  fileUploadPath: E:/test/
+  fileUploadPath: D:/test/
