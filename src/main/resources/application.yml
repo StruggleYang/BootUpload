@@ -6,7 +6,7 @@ spring:
     multipart:
       enabled: true
       max-file-size: 10MB #文件大小
-      max-request-size: 5MB #请求大小
+      max-request-size: 10MB #请求大小
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html

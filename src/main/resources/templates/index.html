@@ -2,35 +2,51 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>springBoot文件上传</title>
-    <script type="text/javascript" th:src="@{/static/plus/jquery.min.js}"></script>
-    <link rel="stylesheet" th:href="@{/static/plus/font-awesome-4.7.0/css/font-awesome.min.css}"/>
-    <link rel="stylesheet" th:href="@{/static/plus/bootstrap-3.3.7-dist/css/bootstrap.css}"/>
-    <link rel="stylesheet" th:href="@{/static/css/style.css}"/>
+    <title th:text="${title}"></title>
+    <script type="text/javascript" th:src="@{plus/jquery.min.js}"></script>
+    <link rel="stylesheet" th:href="@{plus/font-awesome-4.7.0/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{plus/bootstrap-3.3.7-dist/css/bootstrap.css}"/>
+    <link rel="stylesheet" th:href="@{css/style.css}"/>
     <!--引入CSS-->
-    <link rel="stylesheet" type="text/css" th:href="@{/static/plus/webuploader-0.1.5/webuploader.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{plus/webuploader-0.1.5/webuploader.css}"/>
     <!--引入JS-->
-    <script type="text/javascript" th:src="@{/static/plus/webuploader-0.1.5/webuploader.js}"></script>
+    <script type="text/javascript" th:src="@{plus/webuploader-0.1.5/webuploader.js}"></script>
     <!--SWF在初始化的时候指定-->
-    <script type="text/javascript" th:src="@{/static/plus/file-upload.js}"></script>
-    <script type="text/javascript" th:src="@{/static/js/test.js}"></script>
+    <script type="text/javascript" th:src="@{plus/file-upload.js}"></script>
+    <script type="text/javascript" th:src="@{js/test.js}"></script>
 </head>
 <body>
-<!--/*@thymesVar id="texts" type="java"*/-->
-<span th:text="${texts}"></span>
-<div id="upload-back">
-    <div id="upload">
-        <div id="uploader" class="wu-example">
-            <div id="TestFileList" class="uploader-list"></div>
-            <div class="btns">
-                <div id="TestPicker">
-                    <i class="fa fa-plus-square-o"></i>&nbsp;选择文件</div>
-                <button style="margin-left: 8px" id="TestExecuteUploadBtn" class="btn btn-sm btn-info">
-                    <i class="fa fa-upload"></i>&nbsp;开始上传</button>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-6">
+            <h2  class="text-center bg-primary">上传文件</h2>
+            <div id="upload-back">
+                <div id="upload">
+                    <div id="uploader" class="wu-example">
+                        <div id="TestFileList" class="uploader-list"></div>
+                        <div class="btns">
+                            <div id="TestPicker">
+                                <i class="fa fa-plus-square-o"></i>&nbsp;选择文件
+                            </div>
+                            <button style="margin-left: 8px" id="TestExecuteUploadBtn" class="btn btn-sm btn-info">
+                                <i class="fa fa-upload"></i>&nbsp;开始上传
+                            </button>
+                        </div>
+                        <div>
+                            <button style="margin-left: 18px;margin-top: 10px" type="button" class="btn btn-success"
+                                    onclick="Test()">提交
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div>
-                <button style="margin-left: 18px;margin-top: 10px"  type="button" class="btn btn-success" onclick="Test()">提交</button>
-            </div>
+
+        </div>
+        <div class="col-xs-6 ">
+            <h2 class="bg-info">已上传文件列表</h2>
+            <p th:each="file:${files}">
+                <a th:text="${file.name}"></a>
+            </p>
         </div>
     </div>
 </div>

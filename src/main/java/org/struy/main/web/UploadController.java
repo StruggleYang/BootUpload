@@ -3,6 +3,7 @@ package org.struy.main.web;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.struy.main.util.MyProperties;
+import org.struy.main.util.Tools;
 
 import javax.annotation.Resource;
 import java.io.File;
@@ -19,7 +20,7 @@ public class UploadController {
         try {
             fileName = multipartFile.getOriginalFilename();
             String fileSavePath = myProperties.getFileUploadPath();
-          multipartFile.transferTo(new File(fileSavePath + fileName));
+          multipartFile.transferTo(new File(fileSavePath + Tools.uid()+ fileName));
         } catch (Exception e) {
             e.printStackTrace();
             fileName = null;
