@@ -1,6 +1,7 @@
 package org.struy.main.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,7 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class MainControoller {
 
     @RequestMapping()
-    public String root() {
+    public String root(Model model) {
+        model.addAttribute("texts","spring test");
         return "index";
     }
 

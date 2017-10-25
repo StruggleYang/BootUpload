@@ -3,22 +3,21 @@
 <head>
     <meta charset="UTF-8"/>
     <title>springBoot文件上传</title>
-    <script type="text/javascript" src="/static/puls/jquery.min.js"></script>
-    <link rel="stylesheet" href="/static/puls/font-awesome-4.7.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="/static/puls/bootstrap-3.3.7-dist/css/bootstrap.css"/>
-    <link rel="stylesheet" href="/static/css/style.css"/>
+    <script type="text/javascript" th:src="@{/static/plus/jquery.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/static/plus/font-awesome-4.7.0/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{/static/plus/bootstrap-3.3.7-dist/css/bootstrap.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/style.css}"/>
     <!--引入CSS-->
-    <link rel="stylesheet" type="text/css" href="/static/puls/webuploader-0.1.5/webuploader.css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/plus/webuploader-0.1.5/webuploader.css}"/>
     <!--引入JS-->
-    <script type="text/javascript" src="/static/puls/webuploader-0.1.5/webuploader.js"></script>
+    <script type="text/javascript" th:src="@{/static/plus/webuploader-0.1.5/webuploader.js}"></script>
     <!--SWF在初始化的时候指定-->
-    <script type="text/javascript" src="/static/puls/file-upload.js"></script>
-    <script type="text/javascript" src="/static/js/test.js"></script>
+    <script type="text/javascript" th:src="@{/static/plus/file-upload.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/test.js}"></script>
 </head>
 <body>
-<div class="row">
-
-</div>
+<!--/*@thymesVar id="texts" type="java"*/-->
+<span th:text="${texts}"></span>
 <div id="upload-back">
     <div id="upload">
         <div id="uploader" class="wu-example">

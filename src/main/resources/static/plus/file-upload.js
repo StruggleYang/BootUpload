@@ -36,7 +36,7 @@
             var webUploader = WebUploader.create({
 
                 // swf文件路径
-                swf: 'puls/webuploader-0.1.5//Uploader.swf',
+                swf: 'plus/webuploader-0.1.5//Uploader.swf',
 
                 // 文件接收服务端。
                 server:'/upload',
