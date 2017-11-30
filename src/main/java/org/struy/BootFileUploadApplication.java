@@ -1,4 +1,4 @@
-package org.struy.main;
+package org.struy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

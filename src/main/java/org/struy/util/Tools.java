@@ -1,4 +1,4 @@
-package org.struy.main.util;
+package org.struy.util;
 
 import java.util.UUID;
 
