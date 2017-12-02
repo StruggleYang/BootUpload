@@ -9,18 +9,56 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.struy.config.CustomProperties;
+import org.struy.entity.Accessory;
+import org.struy.repository.AccessoryRepository;
 import org.struy.util.Tools;
+import org.struy.util.DownloadUtil;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.util.*;
 
 @Api(value = "Files Upload")
 @RestController
-@RequestMapping("/accessory")
+@RequestMapping("/api/accessory")
 public class AccessoryController {
     @Autowired
     private CustomProperties customProperties;
+    @Autowired
+    private AccessoryRepository accessoryRepository;
 
+    @ApiOperation(value = "已上传的文件列表")
+    @GetMapping()
+    public ResponseEntity<?> all() {
+
+        Iterable<Accessory> iterable = accessoryRepository.findAll();
+        List<Accessory> list1 = new ArrayList();
+        iterable.forEach(ac -> list1.add(ac));
+        return ResponseEntity.ok(list1);
+
+    }
+
+    @ApiOperation(value = "清空已上传的文件记录及所有文件和文件夹")
+    @DeleteMapping()
+    public ResponseEntity<?> deleteAll() {
+        accessoryRepository.deleteAll();
+        if (Tools.foldersFileDelete(customProperties.getFileUploadPath())) {
+            return ResponseEntity.ok().body("cleared");
+        }
+        return ResponseEntity.ok().body("file cleared failed");
+    }
+
+    @ApiOperation(value = "删除单个文件")
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deleteById(@PathVariable String id) {
+        Accessory accessory = accessoryRepository.findOne(id);
+        if (null != accessory) {
+            accessoryRepository.delete(id);
+            Tools.foldersFileDelete(customProperties.getFileUploadPath() + accessory.getPath());
+            return ResponseEntity.ok().body("delete single file successful");
+        }
+        return ResponseEntity.ok().body("single file delete failed");
+    }
 
     @ApiOperation(value = "文件上传")
     @ApiImplicitParam(paramType = "path",
@@ -30,17 +68,29 @@ public class AccessoryController {
             dataType = "String")
     @PostMapping(value = "/upload/{type}")
     public ResponseEntity<?> upload(@PathVariable("type") String type,
-                                    @RequestParam("file") MultipartFile multipartFile) {
+                                    @RequestParam("file") MultipartFile file) {
         String fileName;
-        String fileSavePath = null;
-        if(!multipartFile.isEmpty()){
+        String fileSavePath;
+        String viewUrl;
+        if (!file.isEmpty()) {
             try {
+                Accessory accessory = new Accessory();
+                accessory.setId(Tools.uid());
+                fileName = file.getOriginalFilename();
 
-                fileName = multipartFile.getOriginalFilename();
+                String suffix = fileName.lastIndexOf(".") != -1 ? fileName.substring(fileName.lastIndexOf(".")) : "";
+                String filePath = Tools.folderHelper(type, false) + Tools.dateFolders();
+                String newName = accessory.getId() + suffix;
+                fileSavePath = Tools.folderHelper(customProperties.getFileUploadPath() + filePath, true) + newName;
 
-                fileSavePath = Tools.dateFolders(Tools.folderHelper(customProperties.getFileUploadPath() + type))+Tools.uid() + fileName;
-
-                multipartFile.transferTo(new File(fileSavePath));
+                file.transferTo(new File(fileSavePath));
+                accessory.setContentType(file.getContentType());
+                accessory.setPath(filePath+newName);
+                accessory.setSize(file.getSize() + "");
+                accessory.setType(type);
+                viewUrl = "/api/accessory/view/" + accessory.getId();
+                accessory.setUrl(viewUrl);
+                accessoryRepository.save(accessory);
             } catch (Exception e) {
                 e.printStackTrace();
                 return ResponseEntity
@@ -49,45 +99,61 @@ public class AccessoryController {
             }
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body("Upload Successful by:"+fileSavePath);
+                    .body(viewUrl);
         }
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body("Upload Error");
+                .body("Upload Error , file isEmpty");
 
     }
 
 
-    @ApiOperation(value = "已上传的全部列表")
-    @GetMapping("/all")
-    public ResponseEntity<?> all() {
-        String path = customProperties.getFileUploadPath();
-        File fas[] = new File(path).listFiles();
-        List<Map<String, Object>> files = new ArrayList<>();
-        for (int i = 0; i < fas.length; i++) {
-            File fs = fas[i];
-            if (fs.isDirectory()) {
-                System.out.println(fs.getName() + " [目录]-skip");
-            } else {
-                String name = fs.getName();
-                if (name.length() > 33) {
-                    name = name.substring(33);
-                }
-                Map<String, Object> map = new HashMap<>();
-                map.put("path", name);
-                files.add(map);
+    @ApiOperation(value = "指定类型的所有文件")
+    @GetMapping("/{type}")
+    public ResponseEntity<?> findByType(@PathVariable String type) {
+        List<Accessory> list1 = accessoryRepository.findByType(type);
+        return ResponseEntity.ok(list1);
+
+    }
+
+    @ApiOperation(value = "预览文件", notes = "预览包括图片,pdf,及文本")
+    @GetMapping("/view/{id}")
+    public ResponseEntity<?> view(@PathVariable String id, HttpServletResponse response) {
+        Accessory accessory = accessoryRepository.findOne(id);
+        if (null != accessory && null != accessory.getPath()) {
+
+            String filePath = customProperties.getFileUploadPath() + accessory.getPath();
+            try {
+                DownloadUtil.downLoad(filePath, response, true);
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
-        if (files.size() <= 0) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(files);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body("view Error");
     }
 
-    @ApiOperation(value = "预览文件")
-    @GetMapping("/view")
-    public ResponseEntity<?> view() {
-        //TODO 预览文件
-        return ResponseEntity.ok(null);
+
+    @ApiOperation(value = "下载文件")
+    @GetMapping("/download/{id}")
+    public ResponseEntity<?> downloadFile(@PathVariable String id, HttpServletResponse response) {
+        Accessory accessory = accessoryRepository.findOne(id);
+        if (null != accessory && null != accessory.getPath()) {
+
+            String filePath = customProperties.getFileUploadPath() + accessory.getPath();
+            try {
+                DownloadUtil.downLoad(filePath, response, false);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body("download Error");
     }
+
+
 }

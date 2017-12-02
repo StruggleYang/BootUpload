@@ -1,12 +1,15 @@
 server:
   port: 8089
+  address: localhost
 
 spring:
+  # 文件上传的大小控制
   http:
     multipart:
       enabled: true
       max-file-size: 10MB #文件大小
       max-request-size: 10MB #请求大小
+  # 模板引擎的配置
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
@@ -14,6 +17,34 @@ spring:
     encoding: UTF-8
     content-type: text/html
     cache: false #缓存
+  #配置数据库
+  datasource:
+    url: jdbc:h2:file:~/.h2/accessory-db
+    driver-class-name: org.h2.Driver
+    username: root
+    password: 123456
+
+  #每次启动程序，程序都会运行resources/db/schema.sql文件，对数据库的结构进行操作。
+    #schema:
+      #classpath: db/schema.sql
+  #每次启动程序，程序都会运行resources/db/data.sql文件，对数据库的数据操作。
+    #data:
+      #classpath: db/data.sql
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update #自动更新数据库结构
+
+  #配置能远程访问
+  h2:
+    console:
+      settings:
+        web-allow-others: true
+  #配置访问地址
+      path: /h2-console
+  #配置项目启动 h2就启动
+      enabled: true
+
 
 ########################################################
 # 自定义的配置

@@ -24,7 +24,7 @@ public class CustomProperties {
         if (null == fileUploadPath) {
             return getTempPath();
         }
-        return Tools.folderHelper(fileUploadPath);
+        return Tools.folderHelper(fileUploadPath,true);
     }
 
     /**

@@ -41,13 +41,13 @@ You need two documents to support
 
 ## Features
 - `application.yml` Configuration upload path
-- The file is stored at the `FileRoot/type/year/month` level to facilitate the maintenance of the file
+- `h2` database Storage file info
+- The file is stored at the `FileRoot/type/year/month/file` level to facilitate the maintenance of the file
+- File downloading
+- Picture/pdf/txt Preview
 
 ## Next
-- DB Storage scheme
 - Cloud storage scheme
-- File downloading
-- Picture Preview
 
 ## Contact
 - Blog:[http://www.struy.top](http://www.struy.top)
