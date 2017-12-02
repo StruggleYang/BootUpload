@@ -37,8 +37,8 @@ You need two documents to support
 
 
 ## Features
-*[x] `application.yml` Configuration upload path
-*[x] The file is stored at the `FileRoot/type/year/month` level to facilitate the maintenance of the file
+- `application.yml` Configuration upload path
+- The file is stored at the `FileRoot/type/year/month` level to facilitate the maintenance of the file
 
 ## Next
 - DB Storage scheme
