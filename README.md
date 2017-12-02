@@ -1,3 +1,6 @@
+<p align="center">
+    <img  src="http://oqr3htxnb.bkt.clouddn.com/17-12-2/61918887.jpg">
+</p>
 <h1 align="center">SpringBoot File Upload</h1>
 
 
@@ -42,6 +45,7 @@ You need two documents to support
 
 ## Next
 - DB Storage scheme
+- Cloud storage scheme
 - File downloading
 - Picture Preview
 
