@@ -6,7 +6,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 @Controller
 @RequestMapping("/")
-public class MainControoller {
+public class MainController {
 
     @ApiIgnore
     @RequestMapping()

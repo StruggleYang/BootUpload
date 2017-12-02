@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BootFileUploadApplication {
+public class UploadApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BootFileUploadApplication.class, args);
+		SpringApplication.run(UploadApplication.class, args);
 	}
 }
