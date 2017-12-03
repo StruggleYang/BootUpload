@@ -6,10 +6,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.net.URL;
-import java.net.URLEncoder;
 
 /**
- * 下载工具类
+ * DownloadUtil
+ * @author struy
  */
 public  class DownloadUtil {
 

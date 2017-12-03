@@ -4,6 +4,9 @@ import java.io.File;
 import java.util.Calendar;
 import java.util.UUID;
 
+/**
+ * @author struy
+ */
 public class Tools {
     /**
      * get a UUID

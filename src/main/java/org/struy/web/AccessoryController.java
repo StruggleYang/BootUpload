@@ -42,7 +42,7 @@ public class AccessoryController {
     @DeleteMapping()
     public ResponseEntity<?> deleteAll() {
         accessoryRepository.deleteAll();
-        if (Tools.foldersFileDelete(customProperties.getFileUploadPath())) {
+        if (Tools.foldersFileDelete(customProperties.getUploadPath())) {
             return ResponseEntity.ok().body("cleared");
         }
         return ResponseEntity.ok().body("file cleared failed");
@@ -54,7 +54,7 @@ public class AccessoryController {
         Accessory accessory = accessoryRepository.findOne(id);
         if (null != accessory) {
             accessoryRepository.delete(id);
-            Tools.foldersFileDelete(customProperties.getFileUploadPath() + accessory.getPath());
+            Tools.foldersFileDelete(customProperties.getUploadPath() + accessory.getPath());
             return ResponseEntity.ok().body("delete single file successful");
         }
         return ResponseEntity.ok().body("single file delete failed");
@@ -81,7 +81,7 @@ public class AccessoryController {
                 String suffix = fileName.lastIndexOf(".") != -1 ? fileName.substring(fileName.lastIndexOf(".")) : "";
                 String filePath = Tools.folderHelper(type, false) + Tools.dateFolders();
                 String newName = accessory.getId() + suffix;
-                fileSavePath = Tools.folderHelper(customProperties.getFileUploadPath() + filePath, true) + newName;
+                fileSavePath = Tools.folderHelper(customProperties.getUploadPath() + filePath, true) + newName;
 
                 file.transferTo(new File(fileSavePath));
                 accessory.setContentType(file.getContentType());
@@ -122,7 +122,7 @@ public class AccessoryController {
         Accessory accessory = accessoryRepository.findOne(id);
         if (null != accessory && null != accessory.getPath()) {
 
-            String filePath = customProperties.getFileUploadPath() + accessory.getPath();
+            String filePath = customProperties.getUploadPath() + accessory.getPath();
             try {
                 DownloadUtil.downLoad(filePath, response, true);
 
@@ -142,7 +142,7 @@ public class AccessoryController {
         Accessory accessory = accessoryRepository.findOne(id);
         if (null != accessory && null != accessory.getPath()) {
 
-            String filePath = customProperties.getFileUploadPath() + accessory.getPath();
+            String filePath = customProperties.getUploadPath() + accessory.getPath();
             try {
                 DownloadUtil.downLoad(filePath, response, false);
 

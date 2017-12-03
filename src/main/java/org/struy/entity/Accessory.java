@@ -13,13 +13,13 @@ public class Accessory {
     @Id
     String id;
 
-    String type;
+    String type; // accessory type
 
-    String path;
+    String path; // accessory server save path
 
-    String contentType;
+    String contentType; // accessory contentType
 
-    String size;
+    String size; // accessory size
 
-    String url;
+    String url; //view url
 }

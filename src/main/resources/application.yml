@@ -50,4 +50,5 @@ spring:
 # 自定义的配置
 ########################################################
 custom:
-  fileUploadPath: D:/test/ #文件存储目录
+  swagger-base: org.struy.web
+  upload-path: /home/boot-upload #文件存储目录

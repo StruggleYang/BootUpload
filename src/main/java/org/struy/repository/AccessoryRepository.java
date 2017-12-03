@@ -5,9 +5,10 @@ import org.struy.entity.Accessory;
 
 import java.util.List;
 
-public interface AccessoryRepository extends CrudRepository<Accessory,String> {
+public interface AccessoryRepository extends CrudRepository<Accessory, String> {
     /**
-     * 根据类型查找文件列表
+     * find accessory by type
+     *
      * @param type
      * @return
      */

@@ -1,5 +1,7 @@
 package org.struy.config;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.struy.util.Tools;
@@ -7,11 +9,12 @@ import org.struy.util.Tools;
 @Component
 @ConfigurationProperties(prefix = "custom")
 public class CustomProperties {
-    private String fileUploadPath;
 
-    public void setFileUploadPath(String fileUploadPath) {
-        this.fileUploadPath = fileUploadPath;
-    }
+    @Setter
+    private String uploadPath;
+    @Setter
+    @Getter
+    private String swaggerBase;
 
     /**
      * If there is no configuration,
@@ -19,16 +22,17 @@ public class CustomProperties {
      *
      * @return FileUploadPath
      */
-    public String getFileUploadPath() {
+    public String getUploadPath() {
 
-        if (null == fileUploadPath) {
+        if (null == uploadPath) {
             return getTempPath();
         }
-        return Tools.folderHelper(fileUploadPath,true);
+        return Tools.folderHelper(uploadPath, true);
     }
 
     /**
      * get user's tmpdir
+     *
      * @return TempPath
      */
     private String getTempPath() {
