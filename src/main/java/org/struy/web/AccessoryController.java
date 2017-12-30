@@ -78,8 +78,8 @@ public class AccessoryController {
                 accessory.setId(Tools.uid());
                 fileName = file.getOriginalFilename();
 
-                String suffix = fileName.lastIndexOf(".") != -1 ? fileName.substring(fileName.lastIndexOf(".")) : "";
-                String filePath = Tools.folderHelper(type, false) + Tools.dateFolders();
+                String suffix = Tools.suffix(fileName);
+                String filePath = Tools.folderHelper(type, false) + Tools.dateFolders(false);
                 String newName = accessory.getId() + suffix;
                 fileSavePath = Tools.folderHelper(customProperties.getUploadPath() + filePath, true) + newName;
 

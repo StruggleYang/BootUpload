@@ -18,6 +18,15 @@ public class Tools {
     }
 
     /**
+     * get finle suffix
+     * @param fileName
+     * @return
+     */
+    public static String suffix(String fileName){
+        return fileName.lastIndexOf(".") != -1 ? fileName.substring(fileName.lastIndexOf(".")) : "";
+    }
+
+    /**
      * Add the end to the folder path
      * and if folder path Non-existent then mkdirs
      *
@@ -45,16 +54,26 @@ public class Tools {
      *
      * @return
      */
-    public static String dateFolders() {
+    public static String dateFolders(Boolean url) {
 
         Calendar date = Calendar.getInstance();
-        String path = date.get(Calendar.YEAR)
-                + File.separator
-                + (date.get(Calendar.MONTH) + 1)
-                + File.separator
-                /*+ date.get(Calendar.DAY_OF_MONTH)*/;
+        StringBuffer path = new StringBuffer();
+        if (!url){
+            path.append(date.get(Calendar.YEAR)
+                            + File.separator
+                            + (date.get(Calendar.MONTH) + 1)
+                            + File.separator
+                    /*+ date.get(Calendar.DAY_OF_MONTH)*/);
+            return folderHelper(path.toString(), false);
+        }else {
+            path.append(date.get(Calendar.YEAR)
+                            +"-"
+                            + (date.get(Calendar.MONTH) + 1)
+                            + "-"
+                    + date.get(Calendar.DAY_OF_MONTH));
+            return path.toString()+"/";
+        }
 
-        return folderHelper(path, false);
     }
 
     // UTF-8编码

@@ -16,6 +16,13 @@ public class CustomProperties {
     @Getter
     private String swaggerBase;
 
+    @Getter
+    @Setter
+    private String accessKey;
+    @Getter
+    @Setter
+    private String secretKey;
+
     /**
      * If there is no configuration,
      * it will be uploaded to the user's temporary directory

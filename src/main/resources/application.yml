@@ -51,4 +51,11 @@ spring:
 ########################################################
 custom:
   swagger-base: org.struy.web
-  upload-path: /home/boot-upload #文件存储目录
+  upload-path: D:/test #文件存储目录
+  # 七牛密钥,需要到七牛控制台查看
+  access-key:
+  secret-key:
+  # 实例空间名
+  bucket:
+  # 回传地址
+  back-url:
