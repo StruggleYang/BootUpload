@@ -13,9 +13,13 @@ public class Accessory {
     @Id
     String id;
 
+    Boolean isCloud; // is cloud
+
     String type; // accessory type
 
     String path; // accessory server save path
+
+    String suffix; // suffix
 
     String contentType; // accessory contentType
 

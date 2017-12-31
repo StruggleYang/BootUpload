@@ -84,10 +84,12 @@ public class AccessoryController {
                 fileSavePath = Tools.folderHelper(customProperties.getUploadPath() + filePath, true) + newName;
 
                 file.transferTo(new File(fileSavePath));
+                accessory.setSuffix(suffix);
                 accessory.setContentType(file.getContentType());
                 accessory.setPath(filePath+newName);
                 accessory.setSize(file.getSize() + "");
                 accessory.setType(type);
+                accessory.setIsCloud(false);
                 viewUrl = "/api/accessory/view/" + accessory.getId();
                 accessory.setUrl(viewUrl);
                 accessoryRepository.save(accessory);
@@ -121,13 +123,18 @@ public class AccessoryController {
     public ResponseEntity<?> view(@PathVariable String id, HttpServletResponse response) {
         Accessory accessory = accessoryRepository.findOne(id);
         if (null != accessory && null != accessory.getPath()) {
+            if (!accessory.getIsCloud()){
+                String filePath = customProperties.getUploadPath() + accessory.getPath();
+                try {
+                    DownloadUtil.downLoad(filePath, response, true);
 
-            String filePath = customProperties.getUploadPath() + accessory.getPath();
-            try {
-                DownloadUtil.downLoad(filePath, response, true);
-
-            } catch (Exception e) {
-                e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }else {
+                return ResponseEntity
+                        .status(HttpStatus.OK)
+                        .body(accessory.getUrl());
             }
         }
         return ResponseEntity

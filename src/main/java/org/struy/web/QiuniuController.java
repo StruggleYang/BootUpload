@@ -68,11 +68,15 @@ public class QiuniuController {
                     //  解析上传成功的结果
                     DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
                     // 业务服务器的存储操作
+                    accessory.setSuffix(suffix);
                     accessory.setContentType(file.getContentType());
                     accessory.setPath(filePath+key);
                     accessory.setSize(file.getSize() + "");
                     accessory.setType(type);
-                    accessory.setUrl(callbackUrl+putRet.key);
+                    accessory.setIsCloud(true);
+                    String finalUrl = String.format("%s/%s", callbackUrl, putRet.key);
+                    accessory.setUrl(finalUrl);
+
                     accessoryRepository.save(accessory);
                     return ResponseEntity.ok(accessory.getUrl());
                 } catch (QiniuException ex) {
