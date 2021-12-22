@@ -58,4 +58,4 @@ You need two documents to support
 - Still want to
 
 ## Contact
-- Blog:[http://git66.com](http://git66.com)
+- Blog:[http://git66.com](http://struy.cn)
